@@ -1,27 +1,18 @@
-name: Next.js Deploy with Concurrency
+name: Job Concurrency Demo
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+
+concurrency:
+  group: example-group
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    concurrency:
-      group: deploy
-      cancel-in-progress: true
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v6.0.2
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build Next.js App
-        run: npm run build
-
-      - name: Deploy App
-        run: echo "Deploying App..."
-  
+      - name: Print message
+        run: echo "Running job with concurrency control"
